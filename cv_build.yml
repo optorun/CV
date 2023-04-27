@@ -1,0 +1,56 @@
+---
+
+- name: "Apply custom modifications and build resumes (default formats: html, pdf)"
+  gather_facts: true
+  become: false
+  hosts: localhost
+  connection: local
+
+  vars:
+    css_style: ptn
+    out_dir_path: "{{ ansible_env.HOME }}/TEMP"
+    resumemake_image_tag: 3.0.1-alpine
+
+  pre_tasks:
+    - name: Build custom configurations
+      ansible.builtin.template:
+        src: "./templates/{{ item }}.j2"
+        dest: "./{{ item }}"
+      loop:
+        - Makefile
+        - Dockerfile
+
+  tasks:
+    - name: Build resumes
+      block:
+        - name: "Build 'resumemake' image"
+          community.docker.docker_image:
+            name: "resumemake:{{ resumemake_image_tag }}"
+            build:
+              path: .
+            source: build
+
+        - name: "Run 'resumemake' container"
+          community.docker.docker_container:
+            name: resumemake
+            image: "resumemake:{{ resumemake_image_tag }}"
+            volumes:
+              - .:/home/app/resume:ro
+              - "{{ out_dir_path }}:/tmp:rw"
+            state: started
+            detach: false
+            cleanup: true
+          register: container_output
+
+        - name: "[INFO] Print container output" # Adapter l'output et print les infos relatives au vars passées à ce playbook
+          ansible.builtin.debug:
+            var: container_output.container.Output
+
+      always:
+        - name: Cleanup repo
+          ansible.builtin.file:
+            path: "./{{ item }}"
+            state: absent
+          loop:
+            - Makefile
+            - Dockerfile

@@ -1,0 +1,9 @@
+FROM pandoc/latex:"{{ resumemake_image_tag }}"
+RUN apk add make texlive {# wkhtmltopdf #} \
+#RUN apk add make texlive \
+	&& adduser -D -H "{{ ansible_user_id }}"
+ENV TEXMF /usr/share/texmf-dist
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+USER "{{ ansible_user_id }}"
+ENTRYPOINT ["/entrypoint.sh"]
