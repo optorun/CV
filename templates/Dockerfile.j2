@@ -1,7 +1,7 @@
 FROM pandoc/latex:"{{ resumemake_image_tag }}"
-RUN apk add make texlive {# wkhtmltopdf #} \
-#RUN apk add make texlive \
-	&& adduser -D -H "{{ ansible_user_id }}"
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt update; apt install -y make texlive wkhtmltopdf \
+  && adduser --quiet --gecos "" --disabled-password --no-create-home "{{ ansible_user_id }}"
 ENV TEXMF /usr/share/texmf-dist
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
