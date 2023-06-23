@@ -1,7 +1,8 @@
-!**/\.gitkeep
 **/*\.swp
 **/*\.ignore
 **/*\.wip
 **/*\.local
 **/*\.backup
 **/*\.bak
+out/*
+!**/\.gitkeep

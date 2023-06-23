@@ -1,26 +1,30 @@
 ---
 
 - name: "Apply custom modifications and build resumes (default formats: html, pdf)"
-  gather_facts: true
+  gather_facts: false
   become: false
   hosts: localhost
   connection: local
 
   vars:
     css_style: ptn
-    out_dir_path: "{{ ansible_env.HOME }}/TEMP"
+    out_dir_path: ./out
     resumemake_image_tag: 3.1.1.0-ubuntu
     resumemake_image_force_build: false
-    resumemake_image_entrypoint: sh -c "cd /home/app/resume && make html && make pdf" # La target pdf se base sur le fichier html, donc il faut déjà build la version html
+    resumemake_image_entrypoint: '["sh","-c","cd /home/app/resume && make html && make pdf"]' # pdf target uses html resume as base, so you'll have to build it first
 
   pre_tasks:
+    - name: Get current user from facts # To run image's entrypoint and have files created with appropriate ownership
+      ansible.builtin.setup:
+        filter:
+          - ansible_user_id
+
     - name: Build custom configurations
       ansible.builtin.template:
         src: "./templates/{{ item }}.j2"
         dest: "./{{ item }}"
       loop:
         - Makefile
-        - entrypoint.sh
         - Dockerfile
 
   tasks:
@@ -46,7 +50,7 @@
             cleanup: true
           register: container_output
 
-        - name: "[INFO] Print container output" # Adapter l'output et print les infos relatives au vars passées à ce playbook
+        - name: "[INFO] Print container output"
           ansible.builtin.debug:
             var: container_output.container.Output
 
@@ -57,5 +61,4 @@
             state: absent
           loop:
             - Makefile
-            - entrypoint.sh
             - Dockerfile

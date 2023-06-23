@@ -3,7 +3,5 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt update; apt install -y make texlive wkhtmltopdf \
   && adduser --quiet --gecos "" --disabled-password --no-create-home "{{ ansible_user_id }}"
 ENV TEXMF /usr/share/texmf-dist
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
 USER "{{ ansible_user_id }}"
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT {{resumemake_image_entrypoint}}
