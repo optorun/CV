@@ -14,6 +14,9 @@
     resumemake_image_entrypoint: '["sh","-c","cd /home/app/resume && make html && make pdf"]' # pdf target uses html resume as base, so you'll have to build it first
 
   pre_tasks:
+    - name: "[INCLUDE] Include secret vars"
+      ansible.builtin.include_vars: secrets.vault
+
     - name: Get current user from facts # To run image's entrypoint and have files created with appropriate ownership
       ansible.builtin.setup:
         filter:
@@ -23,9 +26,12 @@
       ansible.builtin.template:
         src: "./templates/{{ item }}.j2"
         dest: "./{{ item }}"
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_id }}"
+        mode: "0644"
       loop:
-        - Makefile
-        - Dockerfile
+        - "Makefile"
+        - "Dockerfile"
 
   tasks:
     - name: Build resumes
@@ -38,6 +44,25 @@
             source: build
             force_source: "{{ 'true' if resumemake_image_force_build|d('false')|bool else 'false' }}"
 
+        - name: Get resumes list
+          ansible.builtin.find:
+            paths: ./resumes/
+            patterns: "*.md"
+          register: _resumes_list
+
+        - name: Inject sensitive information
+          ansible.builtin.replace:
+            path: "{{ item.0.path }}"
+            regexp: "{{ item.1.regex }}"
+            replace: "{{ item.1.replace }}"
+          with_nested:
+            - "{{ _resumes_list.files }}"
+            - "{{ patterns }}"
+          vars:
+            patterns:
+              - {regex: '<email>', replace: '{{ cv_email }}'}
+              - {regex: '<tel>', replace: '{{ cv_tel }}'}
+
         - name: "Run 'resumemake' container"
           community.docker.docker_container:
             name: resumemake
@@ -48,17 +73,31 @@
             state: started
             detach: false
             cleanup: true
-          register: container_output
+          register: _container_output
 
         - name: "[INFO] Print container output"
           ansible.builtin.debug:
-            var: container_output.container.Output
+            var: _container_output.container.Output|d()
 
       always:
+        - name: Restore sensitive information placeholder fields
+          ansible.builtin.replace:
+            path: "{{ item.0.path }}"
+            regexp: "{{ item.1.regex }}"
+            replace: "{{ item.1.replace }}"
+          with_nested:
+            - "{{ _resumes_list.files }}"
+            - "{{ patterns }}"
+          vars:
+            patterns:
+              - {regex: '{{ cv_email }}', replace: '<email>'}
+              - {regex: '{{ cv_tel | replace("+","\+") }}', replace: '<tel>'}
+
         - name: Cleanup repo
+          when: not ansible_check_mode|bool
           ansible.builtin.file:
             path: "./{{ item }}"
             state: absent
           loop:
-            - Makefile
-            - Dockerfile
+            - "Makefile"
+            - "Dockerfile"

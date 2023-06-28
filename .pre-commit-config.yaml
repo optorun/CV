@@ -20,5 +20,18 @@ repos:
       - id: pymarkdown
         args:
           - --disable-rules
-          - line-length,first-line-heading,first-line-h1,no-inline-html,ul-indent,single-title,single-h1,no-space-in-code,no-reversed-links,commands-show-output
+          - line-length,first-line-heading,first-line-h1,no-inline-html,ul-indent,single-title,single-h1,no-space-in-code,no-reversed-links,commands-show-output,heading-increment,header-increment
           - scan
+
+  - repo: https://github.com/ansible-community/ansible-lint.git
+    rev: v6.17.2
+    hooks:
+      - id: ansible-lint
+        args: [-c=.ansible-lint]
+        always_run: false
+
+  - repo: https://github.com/IamTheFij/ansible-pre-commit.git
+    rev: v0.1.2
+    hooks:
+      - id: encryption-check
+        files: ((?:^|\/)vault|vault\.ya?ml$|\.vault$|\.secret$)

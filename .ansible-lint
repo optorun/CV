@@ -1,0 +1,77 @@
+---
+
+# Excluded paths
+exclude_paths:
+  - .pre-commit-config.yaml
+parseable: true
+# quiet: true
+# verbosity: 1
+
+# Enable checking of loop variable prefixes in roles
+loop_var_prefix: "{role}_"
+
+# Enforce variable names to follow pattern below
+# var_naming_pattern: "^[a-z_][a-z0-9_]*$"
+
+use_default_rules: true
+# Load custom rules from this specific folder
+# rulesdir:
+#   - ./rule/directory/
+
+# This makes linter to fully ignore rules/tags listed below (list tags with ansible-lint -T)
+skip_list:
+  - yaml[truthy]
+  - yaml[line-length]
+  - yaml[comments]
+  - var-spacing
+  - no-loop-var-prefix
+  - package-latest
+
+# Any rule that has the 'opt-in' tag will not be loaded unless its 'id' is
+# mentioned in the enable_list:
+enable_list:
+  - empty-string-compare # opt-in
+  - no-log-password # opt-in
+  - no-same-owner # opt-in
+  - yaml
+# Report only a subset of tags and fully ignore any others
+# tags:
+#   - jinja[spacing]
+
+# This makes the linter display but not fail for rules/tags listed below:
+warn_list:
+  - git-latest
+  - experimental # experimental is included in the implicit list
+  - role-name
+  - yaml[document-start]  # you can also use sub-rule matches
+  - no-handler
+  - unnamed-task
+  - name[missing]
+  - meta-no-info
+  - meta-incorrect
+  - schema
+  - fqcn-builtins
+
+# Transforms list (defaults to 'all'); enable ansible-lint to try correcting errors in files (ansible-lint --write) if specific rules are used
+# write_list:
+#   - all # Set to 'none' to avoid ansible-lint trying to fix or help fixing errors
+
+# Offline mode disables installation of requirements.yml
+offline: false
+
+# Uncomment to enforce action validation with tasks, usually is not
+# needed as Ansible syntax check also covers it.
+# skip_action_validation: false
+
+# List of additional kind:pattern to be added at the top of the default
+# match list, first match determines the file kind.
+kinds:
+  - yaml: "**/{.ansible-lint,.yamllint}"
+  - vars: "**/{host_vars,group_vars,vars,defaults}/**/*.{yml,yaml}"
+  - inventory: "**/inventories/**/*"
+  - tasks: "**/tasks/**/*.{yml,yaml}"
+  - meta: "**/meta/main.{yml,yaml}"
+  - handlers: "**/handlers/**/*{.yml,yaml}"
+  - playbook: "**/*.{yml,yaml}"
+  - jinja2: "**/templates/**/*.j2"
+  - yaml: "**/*.{yml,yaml}"

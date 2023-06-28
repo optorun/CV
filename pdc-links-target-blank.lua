@@ -12,4 +12,3 @@ end
 return {
     { Link = add_target_blank }
 }
-
