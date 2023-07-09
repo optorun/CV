@@ -25,7 +25,7 @@ h1 {
 
 /* Used for job title, as we don't go more than 3 levels deep */
 h4 {
-    font-size: 35px;
+    font-size: 30px;
     color: #00b0f0;
     text-align: left;
     line-height: 10px;
