@@ -1,1 +1,1 @@
-../resumes/cv_ptn.md
+../resumes/cv_ptn_fr.md
