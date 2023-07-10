@@ -8,13 +8,13 @@
 
 ### Compétences techniques
 
-* Operating systems : GNU/Linux Debian-based and RHEL based-distros, Windows Server
+* Operating systems : GNU/Linux Debian-based and RHEL-based distros, Windows Server
 * Shells & Scripting : Bash, Powershell
 * Virtualization : vSphere, Hyper-V
 * Containerization & Orchestration : Docker / Docker Swarm (vanilla & Mirantis Kubernetes Engine), Kubernetes (K3s, OpenShift Container Platform)
 * IaC, CM & Automation : Ansible, Puppet, Salt, Docker Compose, Terraform, Helm
 * SCM : Git (vanilla), Gitlab, Github, SVN
-* CI/CD : Jenkins, Gitlab-ci, Octopus Deploy, Artifactory, Nexus
+* CI/CD : Jenkins, Gitlab-CI, Octopus Deploy, Artifactory, Nexus
 * Cloud platforms : AWS, Azure
 * Networking :
   * Basic networking concepts : L2/3 IPv4 networks, 802.1q, NAT/masq, VPN (IPSec, SSL, PPTP, L2TP), 802.1x and common protocols understanding
@@ -42,7 +42,7 @@ Juillet 2021 - Aujourd'hui
     * Mise en place et maintien en condition opérationnelle des pipelines CI/CD, services mutualisés et environnements applicatifs divers, et accompagnement des équipes de dev à l’utilisation de ces outils
     * Collaboration avec l’équipe infratructure sur nos périmètres conjoints : Administration systèmes et applications, automatisation de la gestion des configurations et opérations de maintenance
     * Accompagnement des équipes compétentes sur des sujets de migration / upgrade des applicatifs, ainsi que sur le troubleshooting et la résolution d’incidents
-    * Participation au PoC Openshift Container Platform, visant à préparer les configurations en vue de la migration future des applications et autres services mutualisés (en cours)
+    * Participation au PoC Openshift Container Platform, visant à préparer les configurations en vue de la migration future des applications et autres services mutualisés
 
     Environment : GNU/Linux, Windows Server, Ansible, Jenkins, Octopus Deploy, SonarQube, Artifactory, Gitlab, Nginx, Traefik, vSphere, Docker Swarm, Graylog, Keycloak, Kafka
 
@@ -99,53 +99,53 @@ Juin 2009 - Mai 2011
 ## Formations et certifications
 
 Février 2023
-:   Formation Administration OpenShift Container Platform\
+:   Formation : Administration OpenShift Container Platform\
     *MD6 Consulting*
 
 Novembre 2020
-:   Formation I2S Academy - Kubernetes\
+:   Formation : Kubernetes\
     *Sopra Steria Academy*
 
 Octobre 2019
-:   Formation AWS SysOps Operator - Associate : Systems Operations on AWS\
+:   Formation : AWS Certified SysOps Administrator - Associate : Systems Operations on AWS\
     *Sopra Steria Academy*
 
 Juin 2019
-:   Formation Office 365 - Exchange Online : Administration\
+:   Formation : Office 365 - Exchange Online : Administration\
     *Global Info*
 
 Mars 2019
-:   Formation DevOps Foundation v3 (DOI) + Certification\
+:   Formation + Certification : DevOps Foundation v3 (DOI)\
     *FCT Solutions*
 
 Juin 2018
-:   Formation Implémenter des solutions avec Microsoft Azure (M20533)\
+:   Formation : Implémenter des solutions avec Microsoft Azure (M20533)\
     *IB*
 
 Janvier 2018
-:   Formation Microsoft Skype for Business 2015 (M20334); Préparation à la certification 70-334 Core Solutions of Skype for Business 2015\
+:   Formation : Microsoft Skype for Business 2015 (M20334)\
     *Global Knowledge*
 
 Décembre 2017
-:   Formation Docker, créer et administrer vos conteneurs virtuels d'applications\
+:   Formation : Docker, créer et administrer vos conteneurs virtuels d'applications\
     *Orsys*
 
 Octobre 2016
-:   Formation ITIL v3 + Certification\
+:   Formation + Certification : ITIL v3\
     *APMG International*
 
 Octobre 2013
-:   Formation Implémentation et gestion de la virtualisation de serveurs Microsoft (10755A)\
+:   Formation : Implémentation et gestion de la virtualisation de serveurs Microsoft (10755A)\
     *Institut F2I*
 
 2011 - 2013
 :   Responsable Administrateur de Réseaux d’Entreprise en alternance (titre RNCP niv2)\
-    Certification CQP Administrateur de Réseaux d'Entreprise (titre RNCP niv2, branche SYNTEC)\
+    Certification : CQP Administrateur de Réseaux d'Entreprise (titre RNCP niv2, branche SYNTEC)\
     *CESI Est, LINGOLSHEIM (67)*
 
 2009 - 2011
 :   TS Administrateur Réseaux en alternance (titre RNCP niv3)\
-    Certification Cisco Certified Network Associate 2 (Cisco Systems)\
+    Certification : Cisco Certified Network Associate 2 (Cisco Systems)\
     *CESI Est, LINGOLSHEIM (67)*
 
 2006 - 2008
